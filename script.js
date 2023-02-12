@@ -19,7 +19,6 @@ const gameFlow = (() => {
       } else {
          selection = playerList[0].selection;
       };
-      console.log('selection', selection)
       return {selection};
    };
 
@@ -28,8 +27,7 @@ const gameFlow = (() => {
 
 // Tic Tac Toe gameboard 
 const gameBoard = (() => {
-    const board = [[], [], []]
-
+    const board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
     // Identifies the position where the player's move is made, returns the row,column index. 
     const getGridPosition = (gridItem) => {
       const row = Number(gridItem.dataset.row);
@@ -43,44 +41,35 @@ const gameBoard = (() => {
     };
 
    // Checks to see if the game has been won by a player.
-    const checkGame = (gridItem) => {
-      //console.log('position', getGridPosition(gridItem)) // Why is it returning an object and not an array???
-      //console.log({0: 0, 1: 0} == getGridPosition(gridItem));
-      //console.log('Data type', typeof getGridPosition(gridItem));
-      switch (getGridPosition(gridItem)) {
-         case [0, 0]:
-            if (((board[0][0] & board[0][1] & board[0][2]) === 'X') | ((board[0][0] & board[1][0] & board[2][0]) === 'X') | ((board[0][0] & board[1][1] & board[2][2]) === 'X')) {
-               alert('You win');
-            };
-            break;
-         case [0, 1]:
-            if (((board[0][0] & board[0][1] & board[0][2]) === 'X') | (([0][1] & [1][1] & [2][1]) === 'X')) {
-               alert('You win');
-            };
-            break;
-         case [0, 2]:
-            if (((board[0][0] & board[0][1] & board[0][2]) === 'X') | ((board[0][2] & board[1][2] & board[2][2]) === 'X') | ((board[0][0] & board[1][1] & board[2][0]) === 'X')) {
-               alert('You win');
-            };
-            break;
-         case [1, 0]:
-            if (((board[0][0] & board[1][0] & board[2][0]) === 'X') | ((board[0][2] & board[1][2] & board[2][2]) === 'X') | ((board[0][0] & board[1][1] & board[2][0]) === 'X')) {
-               alert('You win');
-            };
-            break;
+    const checkGame = () => {
+      let oneTwoThree = [board[0][0], board[0][1], board[0][2]];
+      let oneFourSeven = [board[0][0], board[1][0], board[2][0]];
+      let oneFiveNine = [board[0][0], board[1][1], board[2][2]];
+      let twoFiveEight = [board[0][1], board[1][1], board[2][1]];
+      let threeSixNine = [board[0][2], board[1][2], board[2][2]];
+      let threeFiveSeven = [board[0][2], board[1][1], board[2][0]];
+      let fourFiveSix = [board[1][0], board[1][1], board[1][2]];
+      let sevenEightNine = [board[2][0], board[2][1], board[2][2]];
+      if (oneTwoThree.every(i => i === oneTwoThree[0]) | oneFourSeven.every(i => i === oneFourSeven[0]) | oneFiveNine.every(i => i === oneFiveNine[0]) | 
+      twoFiveEight.every(i => i === twoFiveEight[0]) | threeSixNine.every(i => i === threeSixNine[0]) | threeFiveSeven.every(i => i === threeFiveSeven[0]) | 
+      fourFiveSix.every(i => i === fourFiveSix[0]) | sevenEightNine.every(i => i === sevenEightNine[0])) {
+         alert('You win');
       };
     };
-
+    // When a grid item is clicked, then turn order alternates, the player's selection (x or o) is assinged to the DOM, and assigned to the board array.
     const addEventListenerList = (list, eventType) => {
       for (let i=0; i < list.length; i++) {
          list[i].addEventListener(eventType, () => {
+            if (list[i].textContent !== '') {
+               return;
+            };
             let choice = gameFlow.nextTurn() // Changes the players turn each iteration
             if (list[i].textContent == '') {
                list[i].textContent = choice.selection;
             };
             assignBoardPosition(list[i], getGridPosition(list[i]));
-            
-            //checkGame(list[i]);
+            console.log('Game board', board);
+            checkGame(list[i]);
          })
       };
     };
@@ -89,5 +78,4 @@ const gameBoard = (() => {
 })();
 
 gameBoard.addEventListenerList(gridItems, 'click')
-
 
