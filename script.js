@@ -1,6 +1,6 @@
 // Globabl Varibales
 const gridItems = document.querySelectorAll('.boardSquare');
-
+const clearBtn = document.querySelector('#boardClearBtn')
 // Factory for players
 const Player = (name, selection) => {
    return {name, selection};
@@ -60,6 +60,15 @@ const gameBoard = (() => {
          }
       };
     };
+
+   // Resets the DOM grid and the board array back to default values.
+    const resetGame = (board) => {
+      board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+      for (let i = 0; i < gridItems.length; i++) {
+         gridItems[i].textContent = '';
+      };
+    };
+
     // When a grid item is clicked, then turn order alternates, the player's selection (x or o) is assinged to the DOM, and assigned to the board array.
     const addEventListenerList = (list, eventType) => {
       for (let i=0; i < list.length; i++) {
@@ -78,7 +87,9 @@ const gameBoard = (() => {
       };
     };
 
-    return {addEventListenerList}
+    return {addEventListenerList, resetGame}
 })();
 
+
 gameBoard.addEventListenerList(gridItems, 'click')
+clearBtn.addEventListener('click', gameBoard.resetGame);
