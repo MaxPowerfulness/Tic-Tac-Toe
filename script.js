@@ -1,18 +1,20 @@
 // Globabl Varibales
 const gridItems = document.querySelectorAll('.boardSquare');
 const clearBtn = document.querySelector('#boardClearBtn')
+
 // Factory for players
 const Player = (name, selection) => {
    return {name, selection};
 };
 
-
+// Initializes the players and allows for alternating turns between players to occur.
 const gameFlow = (() => {
    const player1 = Player('player1', 'O');
    const player2 = Player('player2', 'X');
    playerList = [player1, player2];
    let selection = playerList[1].selection;
 
+   // Alternates the marker that is placed after one is placed. 
    const nextTurn = () => {
       if (selection === playerList[0].selection) {
          selection = playerList[1].selection;
@@ -21,13 +23,13 @@ const gameFlow = (() => {
       };
       return {selection};
    };
-
    return {nextTurn, playerList};
 })();
 
 // Tic Tac Toe gameboard 
 const gameBoard = (() => {
     const board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
     // Identifies the position where the player's move is made, returns the row,column index. 
     const getGridPosition = (gridItem) => {
       const row = Number(gridItem.dataset.row);
@@ -86,10 +88,9 @@ const gameBoard = (() => {
          })
       };
     };
-
     return {addEventListenerList, resetGame}
 })();
 
-
+// Event Listeners 
 gameBoard.addEventListenerList(gridItems, 'click')
 clearBtn.addEventListener('click', gameBoard.resetGame);
