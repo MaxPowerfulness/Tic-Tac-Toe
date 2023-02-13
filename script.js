@@ -83,7 +83,6 @@ const gameBoard = (() => {
                list[i].textContent = choice.selection;
             };
             assignBoardPosition(list[i], getGridPosition(list[i]));
-            console.log('Game board', board);
             checkGame(choice.selection);
          })
       };
