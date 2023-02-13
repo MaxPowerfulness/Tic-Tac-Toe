@@ -22,7 +22,7 @@ const gameFlow = (() => {
       return {selection};
    };
 
-   return {nextTurn}
+   return {nextTurn, playerList};
 })();
 
 // Tic Tac Toe gameboard 
@@ -41,7 +41,7 @@ const gameBoard = (() => {
     };
 
    // Checks to see if the game has been won by a player.
-    const checkGame = () => {
+    const checkGame = (playerSelection) => {
       let oneTwoThree = [board[0][0], board[0][1], board[0][2]];
       let oneFourSeven = [board[0][0], board[1][0], board[2][0]];
       let oneFiveNine = [board[0][0], board[1][1], board[2][2]];
@@ -53,7 +53,11 @@ const gameBoard = (() => {
       if (oneTwoThree.every(i => i === oneTwoThree[0]) | oneFourSeven.every(i => i === oneFourSeven[0]) | oneFiveNine.every(i => i === oneFiveNine[0]) | 
       twoFiveEight.every(i => i === twoFiveEight[0]) | threeSixNine.every(i => i === threeSixNine[0]) | threeFiveSeven.every(i => i === threeFiveSeven[0]) | 
       fourFiveSix.every(i => i === fourFiveSix[0]) | sevenEightNine.every(i => i === sevenEightNine[0])) {
-         alert('You win');
+         if (playerSelection === "O") {
+            alert(`${gameFlow.playerList[0].name} wins`) 
+         } else {
+            alert(`${gameFlow.playerList[1].name} wins`)
+         }
       };
     };
     // When a grid item is clicked, then turn order alternates, the player's selection (x or o) is assinged to the DOM, and assigned to the board array.
@@ -69,7 +73,7 @@ const gameBoard = (() => {
             };
             assignBoardPosition(list[i], getGridPosition(list[i]));
             console.log('Game board', board);
-            checkGame(list[i]);
+            checkGame(choice.selection);
          })
       };
     };
@@ -78,4 +82,3 @@ const gameBoard = (() => {
 })();
 
 gameBoard.addEventListenerList(gridItems, 'click')
-
