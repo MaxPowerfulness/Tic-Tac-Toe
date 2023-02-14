@@ -9,8 +9,8 @@ const Player = (name, selection) => {
 
 // Initializes the players and allows for alternating turns between players to occur.
 const gameFlow = (() => {
-   const player1 = Player('player1', 'O');
-   const player2 = Player('player2', 'X');
+   const player1 = Player('Player 1', 'O');
+   const player2 = Player('Player 2', 'X');
    playerList = [player1, player2];
    let selection = playerList[1].selection;
 
@@ -18,17 +18,18 @@ const gameFlow = (() => {
    const nextTurn = () => {
       if (selection === playerList[0].selection) {
          selection = playerList[1].selection;
+         
       } else {
          selection = playerList[0].selection;
       };
       return {selection};
    };
-   return {nextTurn, playerList};
+   return {nextTurn, playerList, selection};
 })();
 
 // Tic Tac Toe gameboard 
 const gameBoard = (() => {
-    const board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+    let board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
 
     // Identifies the position where the player's move is made, returns the row,column index. 
     const getGridPosition = (gridItem) => {
@@ -56,18 +57,23 @@ const gameBoard = (() => {
       twoFiveEight.every(i => i === twoFiveEight[0]) | threeSixNine.every(i => i === threeSixNine[0]) | threeFiveSeven.every(i => i === threeFiveSeven[0]) | 
       fourFiveSix.every(i => i === fourFiveSix[0]) | sevenEightNine.every(i => i === sevenEightNine[0])) {
          if (playerSelection === "O") {
-            alert(`${gameFlow.playerList[0].name} wins`) 
+            alert(`${gameFlow.playerList[0].name} wins`)
          } else {
-            alert(`${gameFlow.playerList[1].name} wins`)
+            alert(`${gameFlow.playerList[1].name} wins`);
          }
       };
     };
 
    // Resets the DOM grid and the board array back to default values.
-    const resetGame = (board) => {
+    const resetGame = () => {
       board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
       for (let i = 0; i < gridItems.length; i++) {
          gridItems[i].textContent = '';
+      };
+      console.log(gameFlow.nextTurn().selection);
+      // Ensures that Player 1 ('O') always plays first. 
+      if (gameFlow.nextTurn().selection === 'O') { 
+         gameFlow.nextTurn();
       };
     };
 
