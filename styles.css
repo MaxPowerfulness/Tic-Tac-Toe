@@ -35,7 +35,16 @@ body {
     margin-top: var(--spacing-xxl);
 }
 
+.player1,
+.player2 {
+    border: 1px black solid;
+}
 
+.clicked {
+    transform: scale(1.1);
+    border-color: rgb(214, 175, 0);
+    box-shadow: 0 0 10px rgb(214, 175, 0);
+}
 
 /* Game board */
 #gameBoardContainer {
@@ -51,6 +60,7 @@ body {
 
 .boardSquare {
     border: 1px solid black;
+    transition: all 0.3s;
 }
 
 .unClickable {

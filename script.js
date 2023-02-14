@@ -2,6 +2,8 @@
 const gridItems = document.querySelectorAll('.boardSquare');
 const clearBtn = document.querySelector('#boardClearBtn')
 const gameBoardContainer = document.querySelector('#gameBoardContainer');
+const player1Div = document.querySelector('.player1');
+const player2Div = document.querySelector('.player2');
 
 // Factory for players
 const Player = (name, selection) => {
@@ -92,6 +94,8 @@ const gameBoard = (() => {
             if (list[i].textContent == '') {
                list[i].textContent = choice.selection;
             };
+            list[i].classList.add('clicked'); // For indication that a grid item was clicked.
+            list[i].addEventListener('transitionend', removeTransition);
             assignBoardPosition(list[i], getGridPosition(list[i]));
             checkGame(choice.selection);
          })
@@ -99,6 +103,11 @@ const gameBoard = (() => {
     };
     return {addEventListenerList, resetGame}
 })();
+
+// Removes class .clicked to complete button clicking animation.
+function removeTransition() {
+   this.classList.remove('clicked');
+}
 
 // Event Listeners 
 gameBoard.addEventListenerList(gridItems, 'click')
