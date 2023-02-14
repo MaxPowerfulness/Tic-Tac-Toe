@@ -53,3 +53,7 @@ body {
     border: 1px solid black;
 }
 
+.unClickable {
+    pointer-events: none;
+}
+
