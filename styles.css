@@ -40,10 +40,18 @@ body {
     border: 1px black solid;
 }
 
+.active {
+    border: 2px yellow solid;
+}
+
 .clicked {
     transform: scale(1.1);
     border-color: rgb(214, 175, 0);
     box-shadow: 0 0 10px rgb(214, 175, 0);
+}
+
+.unClickable {
+    pointer-events: none;
 }
 
 /* Game board */
@@ -61,9 +69,5 @@ body {
 .boardSquare {
     border: 1px solid black;
     transition: all 0.3s;
-}
-
-.unClickable {
-    pointer-events: none;
 }
 

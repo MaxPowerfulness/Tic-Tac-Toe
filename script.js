@@ -16,14 +16,18 @@ const gameFlow = (() => {
    const player2 = Player('Player 2', 'X');
    playerList = [player1, player2];
    let selection = playerList[1].selection;
+   player1Div.classList.add('active');
 
    // Alternates the marker that is placed after one is placed. 
    const nextTurn = () => {
       if (selection === playerList[0].selection) {
          selection = playerList[1].selection;
-         
+         player2Div.classList.remove('active');
+         player1Div.classList.add('active');
       } else {
          selection = playerList[0].selection;
+         player1Div.classList.remove('active');
+         player2Div.classList.add('active');
       };
       return {selection};
    };
