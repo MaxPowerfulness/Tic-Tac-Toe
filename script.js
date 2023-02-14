@@ -1,6 +1,7 @@
 // Globabl Varibales
 const gridItems = document.querySelectorAll('.boardSquare');
 const clearBtn = document.querySelector('#boardClearBtn')
+const gameBoardContainer = document.querySelector('#gameBoardContainer');
 
 // Factory for players
 const Player = (name, selection) => {
@@ -57,9 +58,11 @@ const gameBoard = (() => {
       twoFiveEight.every(i => i === twoFiveEight[0]) | threeSixNine.every(i => i === threeSixNine[0]) | threeFiveSeven.every(i => i === threeFiveSeven[0]) | 
       fourFiveSix.every(i => i === fourFiveSix[0]) | sevenEightNine.every(i => i === sevenEightNine[0])) {
          if (playerSelection === "O") {
-            alert(`${gameFlow.playerList[0].name} wins`)
+            alert(`${gameFlow.playerList[0].name} wins`);
+            gameBoardContainer.classList.add('unClickable');
          } else {
             alert(`${gameFlow.playerList[1].name} wins`);
+            gameBoardContainer.classList.add('unClickable');
          }
       };
     };
@@ -75,6 +78,7 @@ const gameBoard = (() => {
       if (gameFlow.nextTurn().selection === 'O') { 
          gameFlow.nextTurn();
       };
+      gameBoardContainer.classList.remove('unClickable');
     };
 
     // When a grid item is clicked, then turn order alternates, the player's selection (x or o) is assinged to the DOM, and assigned to the board array.
