@@ -37,7 +37,7 @@ const gameFlow = (() => {
 // Tic Tac Toe gameboard 
 const gameBoard = (() => {
     let board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-
+    let counter = 0;
     // Identifies the position where the player's move is made, returns the row,column index. 
     const getGridPosition = (gridItem) => {
       const row = Number(gridItem.dataset.row);
@@ -60,10 +60,14 @@ const gameBoard = (() => {
       let threeFiveSeven = [board[0][2], board[1][1], board[2][0]];
       let fourFiveSix = [board[1][0], board[1][1], board[1][2]];
       let sevenEightNine = [board[2][0], board[2][1], board[2][2]];
+      console.log('counter', counter);
       if (oneTwoThree.every(i => i === oneTwoThree[0]) | oneFourSeven.every(i => i === oneFourSeven[0]) | oneFiveNine.every(i => i === oneFiveNine[0]) | 
       twoFiveEight.every(i => i === twoFiveEight[0]) | threeSixNine.every(i => i === threeSixNine[0]) | threeFiveSeven.every(i => i === threeFiveSeven[0]) | 
-      fourFiveSix.every(i => i === fourFiveSix[0]) | sevenEightNine.every(i => i === sevenEightNine[0])) {
-         if (playerSelection === "O") {
+      fourFiveSix.every(i => i === fourFiveSix[0]) | sevenEightNine.every(i => i === sevenEightNine[0]) | counter === 8) {
+         if (counter == 8) {
+            alert('Tie Game');
+            gameBoardContainer.classList.add('unClickable');
+         } else if (playerSelection === "O") {
             alert(`${gameFlow.playerList[0].name} wins`);
             gameBoardContainer.classList.add('unClickable');
          } else {
@@ -71,8 +75,8 @@ const gameBoard = (() => {
             gameBoardContainer.classList.add('unClickable');
          }
       };
+      counter += 1;
     };
-
    // Resets the DOM grid and the board array back to default values.
     const resetGame = () => {
       board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
