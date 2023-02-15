@@ -1,6 +1,8 @@
 :root {
     --yellow: #EDF060;
-    --turquoise: #225560;
+    --purple: #b540a0;
+    --gold: #a0b540;
+    --Light-turquoise: #40A0B5;
     --light-black: #171219;
     --orange: #F0803C;
     --violet: #310D20;
@@ -10,7 +12,7 @@
     --spacing-md: 15px;
     --spacing-lg: 20px;
     --spacing-xl: 40px;
-    --spacing-xxl: 100px;
+    --spacing-xxl: 80px;
 }
 
 * {
@@ -24,7 +26,32 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-xl)
+    gap: var(--spacing-xl);
+    background: var(--Light-turquoise);
+}
+
+/* Game board */
+#gameBoardContainer {
+    margin-top: var(--spacing-xxl);
+}
+
+.gameBoard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    text-align: center;
+    width: 400px;
+    height: 400px;
+    background: rgb(255, 247, 247);
+}
+
+.boardSquare {
+    border: 1px solid var(--light-black);
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
 }
 
 
@@ -37,37 +64,38 @@ body {
 
 .player1,
 .player2 {
-    border: 1px black solid;
+    border: 3px var(--light-black) solid;
+    padding: var(--spacing-lg) 35px;
+    border-radius: var(--border-radius);
+    background: var(--violet);
 }
 
+.player1Background {
+    background: var(--purple);
+}
+
+.player2Background {
+    background: var(--gold);
+}
+
+#boardClearBtn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    background: var(--orange);
+}
+
+
 .active {
-    border: 2px yellow solid;
+    border: 3px var(--yellow) solid;
 }
 
 .clicked {
     transform: scale(1.1);
-    border-color: rgb(214, 175, 0);
-    box-shadow: 0 0 10px rgb(214, 175, 0);
+    border: 3px solid var(--yellow);
+    box-shadow: 0px 0px 10px var(--yellow);
 }
 
 .unClickable {
     pointer-events: none;
-}
-
-/* Game board */
-#gameBoardContainer {
-    margin-top: var(--spacing-xxl);
-}
-
-.gameBoard {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    text-align: center;
-}
-
-.boardSquare {
-    border: 1px solid black;
-    transition: all 0.3s;
 }
 

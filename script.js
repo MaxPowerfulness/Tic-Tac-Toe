@@ -37,7 +37,7 @@ const gameFlow = (() => {
 // Tic Tac Toe gameboard 
 const gameBoard = (() => {
     let board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
-    let counter = 0;
+    let counter = 0; // To keep track of number of moves made for tie game purposes.
     // Identifies the position where the player's move is made, returns the row,column index. 
     const getGridPosition = (gridItem) => {
       const row = Number(gridItem.dataset.row);
@@ -89,6 +89,8 @@ const gameBoard = (() => {
          gameFlow.nextTurn();
       };
       gameBoardContainer.classList.remove('unClickable');
+      gridItems.forEach(item => item.classList.remove('player1Background') | item.classList.remove('player2Background'));
+      counter = 0;
     };
 
     // When a grid item is clicked, then turn order alternates, the player's selection (x or o) is assinged to the DOM, and assigned to the board array.
@@ -101,6 +103,11 @@ const gameBoard = (() => {
             let choice = gameFlow.nextTurn() // Changes the players turn each iteration
             if (list[i].textContent == '') {
                list[i].textContent = choice.selection;
+            };
+            if (choice.selection === 'O') { // Changes background color of gridItems.
+               list[i].classList.add('player1Background');
+            } else {
+               list[i].classList.add('player2Background');
             };
             list[i].classList.add('clicked'); // For indication that a grid item was clicked.
             list[i].addEventListener('transitionend', removeTransition);
